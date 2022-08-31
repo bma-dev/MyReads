@@ -10,18 +10,20 @@ function App() {
 
 
   const [books, setBooks] = useState([]);
-  useEffect(() => {
-    const getBooks = async () => {
-      const res = BooksAPI.getAll();
-      getBooks(res);
-    }
-  })
+
+  useEffect(()=>{
+    const getBooks= async ()=>{
+     const books = await BooksAPI.getAll();
+      setBooks(books);
+    }; 
+    getBooks();
+  },[]);
  
   return (
     <div className="app">
        <Routes>
         <Route exact path={"/"} element={<HomePage books={books} />} />
-        <Route path={"/search"} element={<Search />} />
+        <Route path={"/search"} element={<Search books={books} />} />
       </Routes> 
     </div>
   );

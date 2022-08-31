@@ -5,9 +5,9 @@ import PropTypes from "prop-types";
 
 
 
-const HomePage = (books) => {
+const HomePage = ({books}) => {
 
-
+    console.log(books);
     return (
         <div>
             <div className="list-books">
@@ -16,9 +16,9 @@ const HomePage = (books) => {
                 </div>
                 <div className="list-books-content">
                     <div>
-                        <BookShelf books={books}  title={"Currently Reading"} />
-                        <BookShelf books={books}  title={"Want to Read"}/>
-                        <BookShelf books={books}  title={"Read"}/>
+                        <BookShelf books={books} category="currentlyReading"  title={"Currently Reading"} />
+                        <BookShelf books={books} category="wantToRead" title={"Want to Read"}/>
+                        <BookShelf books={books} category="read"  title={"Read"}/>
                     </div>
                 </div>
                 <AddBook />
