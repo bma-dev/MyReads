@@ -1,23 +1,34 @@
 import React from 'react';
 import Book from '../components/Book';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from "prop-types";
+import * as BooksAPI from "../BooksAPI";
 
-const Search = ({books}) => {
 
-    const [searchVal, setSearchVal] = useState('');
+const Search = ({updateBook}) => {
+
+    const [searchVal, setSearchVal] = useState([]);
+    const [books, setBooks] = useState([]);
+
+    useEffect(()=>{
+        const getBooks= async ()=>{
+         const books = await BooksAPI.getAll();
+          setBooks(books);
+        }; 
+        getBooks();
+    },[]);
 
     const handleChange = (event) => {
         setSearchVal(event.target.value);
     };
 
     const filteredBooks = books.filter((book) => {
-        return book.includes(searchVal);
+         return book.title.toLowerCase().includes(searchVal);
     });
 
-    console.log(searchVal);
-    console.log(books);
+    
+
 
     return (
         <div>
@@ -38,7 +49,7 @@ const Search = ({books}) => {
                 <div className="search-books-results">
                     <ol className="books-grid">
                         {filteredBooks.map((book) => 
-                          <Book key={book.id}  book={book}/>
+                          <Book key={book.id}  book={book} updateBook={updateBook}/>
                         )}
                     </ol>
                 </div>

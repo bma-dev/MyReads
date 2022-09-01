@@ -2,7 +2,7 @@ import React from 'react';
 import Book from './Book';
 
 
-const BookShelf = ({ title, books, category}) => {
+const BookShelf = ({ title, books, category, updateBook}) => {
 
    const booksCategory = books.filter((book)=> book.shelf === category);
 
@@ -12,7 +12,7 @@ const BookShelf = ({ title, books, category}) => {
                 <div className="bookshelf-books">
                     <ol className="books-grid">
                     {booksCategory.map((book)=>(
-                        <Book key={book.id}  book={book}/>
+                        <Book key={book.id}  book={book} updateBook={updateBook}/>
                     ))}
                     </ol>
                 </div>

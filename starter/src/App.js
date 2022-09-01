@@ -18,12 +18,22 @@ function App() {
     }; 
     getBooks();
   },[]);
+
+
+  const updateBook = (book, shelf) => {
+    const update= async () => {
+      const res = await BooksAPI.update(book, shelf);
+      setBooks(books.concat(res));
+    };
+
+    update();
+  };
  
   return (
     <div className="app">
        <Routes>
-        <Route exact path={"/"} element={<HomePage books={books} />} />
-        <Route path={"/search"} element={<Search books={books} />} />
+        <Route exact path={"/"} element={<HomePage books={books} updateBook={updateBook} />} />
+        <Route path={"/search"} element={<Search books={books}  updateBook={updateBook}/>} />
       </Routes> 
     </div>
   );
