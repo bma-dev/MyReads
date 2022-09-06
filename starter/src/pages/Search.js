@@ -13,7 +13,7 @@ const Search = ({updateBook}) => {
 
     useEffect(()=>{
         const getBooks= async ()=>{
-         const books = await BooksAPI.getAll();
+          const books = await BooksAPI.getAll();
           setBooks(books);
         }; 
         getBooks();
@@ -26,8 +26,6 @@ const Search = ({updateBook}) => {
     const filteredBooks = books.filter((book) => {
          return book.title.toLowerCase().includes(searchVal);
     });
-
-    
 
 
     return (

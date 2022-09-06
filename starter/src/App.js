@@ -10,25 +10,34 @@ function App() {
 
 
   const [books, setBooks] = useState([]);
-
-  useEffect(()=>{
-    const getBooks= async ()=>{
-     const books = await BooksAPI.getAll();
-      setBooks(books);
-    }; 
-    getBooks();
-  },[]);
-
-
-  const updateBook = (book, shelf) => {
-    const update= async () => {
-      const res = await BooksAPI.update(book, shelf);
-      setBooks(books.concat(res));
-    };
-
-    update();
-  };
  
+    
+    useEffect(() => {
+      const getBooks = async () => {
+        const res = await BooksAPI.getAll();
+        setBooks(res);
+      }
+  
+      getBooks();
+    }, []);
+  
+    const updateBook = (book, newShelf) => {
+      const updateLocalBook = () => {
+        const idBook = books.findIndex((shelfBook) => {
+          return shelfBook.id === book.id;
+        })
+  
+        if (idBook >= 0) {
+          let tempBooks = [...books];
+          tempBooks[idBook].shelf = newShelf;
+          setBooks(tempBooks);
+        }
+      }
+  
+      updateLocalBook();
+    }
+
+
   return (
     <div className="app">
        <Routes>
